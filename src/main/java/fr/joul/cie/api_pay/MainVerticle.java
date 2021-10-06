@@ -1,6 +1,6 @@
-package fr.joul.cie.api_pay.api_pay;
+package fr.joul.cie.api_pay;
 
-import fr.joul.cie.api_pay.api_pay.handler.VehicleHandler;
+import fr.joul.cie.api_pay.handler.VehicleHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.ext.web.Router;
@@ -13,15 +13,13 @@ public class MainVerticle extends AbstractVerticle {
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
-    Router restAPI = Router.router(vertx);
-
-    restAPI.get("/healthcheck").handler(ctx -> ctx.response().end("OK"));
-
-    restAPI.mountSubRouter("/vehicles", new VehicleHandler(vertx).getRestAPI());
+    Router mainHandler = Router.router(vertx);
+    mainHandler.get("/healthcheck").handler(ctx -> ctx.response().end("OK"));
+    mainHandler.mountSubRouter("/vehicles", new VehicleHandler(vertx).getRestAPI());
 
     vertx.createHttpServer()
-      .requestHandler(restAPI)
-      .listen(8888)
+      .requestHandler(mainHandler)
+      .listen(config().getInteger("http.server.port"))
       .onSuccess(it -> logger.info("HTTP server started on port {}", it.actualPort()))
       .onFailure(it -> logger.error("HTTP server failed to start", it.getCause()));
 

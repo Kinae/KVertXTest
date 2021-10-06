@@ -1,4 +1,4 @@
-package fr.joul.cie.api_pay.api_pay.handler;
+package fr.joul.cie.api_pay.handler;
 
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;

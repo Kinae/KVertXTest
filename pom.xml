@@ -19,7 +19,7 @@
     <vertx.version>4.1.4</vertx.version>
     <junit-jupiter.version>5.7.0</junit-jupiter.version>
 
-    <main.verticle>fr.joul.cie.api_pay.api_pay.MainVerticle</main.verticle>
+    <main.verticle>fr.joul.cie.api_pay.MainVerticle</main.verticle>
     <launcher.class>io.vertx.core.Launcher</launcher.class>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -45,6 +45,14 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-config-yaml</artifactId>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
