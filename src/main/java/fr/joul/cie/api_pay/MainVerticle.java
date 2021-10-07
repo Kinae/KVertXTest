@@ -15,8 +15,8 @@ public class MainVerticle extends AbstractVerticle {
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
     Router mainHandler = Router.router(vertx);
-    mainHandler.mountSubRouter(HealthHandler.PATH, new HealthHandler(vertx).getRestAPI());
-    mainHandler.mountSubRouter(VehicleHandler.PATH, new VehicleHandler(vertx).getRestAPI());
+    mainHandler.mountSubRouter(HealthHandler.PATH, HealthHandler.create(vertx));
+    mainHandler.mountSubRouter(VehicleHandler.PATH, VehicleHandler.create(vertx));
 
     vertx.createHttpServer()
       .requestHandler(mainHandler)

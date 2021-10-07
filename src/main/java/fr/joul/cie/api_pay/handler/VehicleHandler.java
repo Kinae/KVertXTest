@@ -11,15 +11,15 @@ public class VehicleHandler implements Handler<RoutingContext> {
 
   private final Router restAPI;
 
-  public VehicleHandler(Vertx vertx) {
+  private VehicleHandler(Vertx vertx) {
     restAPI = Router.router(vertx);
     restAPI.get("/:id").handler(this::getVehicle);
     restAPI.post("/:id/reports").handler(this::postReports);
     restAPI.post("/:id/journey").handler(this::postJourney);
   }
 
-  public Router getRestAPI() {
-    return restAPI;
+  public static Router create(Vertx vertx) {
+    return new VehicleHandler(vertx).restAPI;
   }
 
   @Override

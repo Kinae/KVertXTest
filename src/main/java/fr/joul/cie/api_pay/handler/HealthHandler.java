@@ -14,7 +14,7 @@ public class HealthHandler implements Handler<RoutingContext> {
 
   private final Router restAPI;
 
-  public HealthHandler(Vertx vertx) {
+  private HealthHandler(Vertx vertx) {
     restAPI = Router.router(vertx);
     restAPI.get("/").handler(HealthCheckHandler.create(vertx));
 
@@ -41,8 +41,8 @@ public class HealthHandler implements Handler<RoutingContext> {
 
   }
 
-  public Router getRestAPI() {
-    return restAPI;
+  public static Router create(Vertx vertx) {
+    return new HealthHandler(vertx).restAPI;
   }
 
   @Override
