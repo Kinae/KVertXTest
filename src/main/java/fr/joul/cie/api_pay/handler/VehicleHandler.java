@@ -7,7 +7,9 @@ import io.vertx.ext.web.RoutingContext;
 
 public class VehicleHandler implements Handler<RoutingContext> {
 
-  private Router restAPI;
+  public static final String PATH = "/vehicles";
+
+  private final Router restAPI;
 
   public VehicleHandler(Vertx vertx) {
     restAPI = Router.router(vertx);

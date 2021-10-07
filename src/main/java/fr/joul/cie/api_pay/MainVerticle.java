@@ -1,5 +1,6 @@
 package fr.joul.cie.api_pay;
 
+import fr.joul.cie.api_pay.handler.HealthHandler;
 import fr.joul.cie.api_pay.handler.VehicleHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
@@ -14,8 +15,8 @@ public class MainVerticle extends AbstractVerticle {
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
     Router mainHandler = Router.router(vertx);
-    mainHandler.get("/healthcheck").handler(ctx -> ctx.response().end("OK"));
-    mainHandler.mountSubRouter("/vehicles", new VehicleHandler(vertx).getRestAPI());
+    mainHandler.mountSubRouter(HealthHandler.PATH, new HealthHandler(vertx).getRestAPI());
+    mainHandler.mountSubRouter(VehicleHandler.PATH, new VehicleHandler(vertx).getRestAPI());
 
     vertx.createHttpServer()
       .requestHandler(mainHandler)
