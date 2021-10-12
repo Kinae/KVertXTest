@@ -19,7 +19,7 @@
     <vertx.version>4.1.4</vertx.version>
     <junit-jupiter.version>5.7.0</junit-jupiter.version>
 
-    <main.verticle>fr.joul.cie.api_pay.MainVerticle</main.verticle>
+    <main.verticle>fr.joul.cie.api_pay.verticle.MainVerticle</main.verticle>
     <launcher.class>io.vertx.core.Launcher</launcher.class>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -54,19 +54,11 @@
       <groupId>io.vertx</groupId>
       <artifactId>vertx-health-check</artifactId>
     </dependency>
-<!--    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-web</artifactId>
-    </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-pg-client</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-micrometer-metrics</artifactId>
-    </dependency>
-    <dependency>
+<!--    <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-camel-bridge</artifactId>
     </dependency>
@@ -152,5 +144,18 @@
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>local</id>
+      <dependencies>
+        <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty-resolver-dns-native-macos</artifactId>
+          <scope>runtime</scope>
+          <classifier>osx-x86_64</classifier>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
 
 </project>

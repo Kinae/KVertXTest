@@ -19,13 +19,8 @@ public class HealthHandler implements Handler<RoutingContext> {
     restAPI.get("/").handler(HealthCheckHandler.create(vertx));
 
     HealthCheckHandler healthCheckHandler = HealthCheckHandler.createWithHealthChecks(HealthChecks.create(vertx));
-    healthCheckHandler.register(
-      "my-procedure",
-      promise -> promise.complete(Status.OK()));
-    healthCheckHandler.register(
-      "my-procedure-with-timeout",
-      2000,
-      promise -> promise.complete(Status.OK()));
+    healthCheckHandler.register("my-procedure", promise -> promise.complete(Status.OK()));
+    healthCheckHandler.register("my-procedure-with-timeout", 2000, promise -> promise.complete(Status.OK()));
 
 //    healthCheckHandler.register("database",
 //      promise -> pool.getConnection(connection -> {

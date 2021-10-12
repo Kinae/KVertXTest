@@ -1,6 +1,6 @@
 package fr.joul.cie.api_pay.api_pay;
 
-import fr.joul.cie.api_pay.MainVerticle;
+import fr.joul.cie.api_pay.verticle.MainVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
