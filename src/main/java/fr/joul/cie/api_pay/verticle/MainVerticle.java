@@ -17,11 +17,9 @@ public class MainVerticle extends AbstractVerticle {
     mainHandler.mountSubRouter(HealthHandler.PATH, HealthHandler.create(vertx));
     mainHandler.mountSubRouter(VehicleHandler.PATH, VehicleHandler.create(vertx));
 
-    var i = config().getInteger("http.server.port");
-
     vertx.createHttpServer()
       .requestHandler(mainHandler)
-      .listen(8080)
+      .listen(config().getInteger("http.server.port", 8080))
       .onSuccess(it -> logger.info("HTTP server started on port {}", it.actualPort()))
       .onFailure(it -> logger.error("HTTP server failed to start", it.getCause()));
   }

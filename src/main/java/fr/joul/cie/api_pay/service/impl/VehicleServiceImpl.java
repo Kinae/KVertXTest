@@ -29,7 +29,7 @@ public class VehicleServiceImpl implements VehicleService {
     client.query("SELECT * FROM test_a").execute(it ->
       handler.handle(it.map(rows ->
         StreamSupport.stream(rows.spliterator(), false)
-          .map(row -> new Vehicle().name(row.getString("namee")))
+          .map(row -> new Vehicle().name(row.getString("name")))
           .collect(Collectors.toList()))));
   }
 
