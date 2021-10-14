@@ -13,6 +13,13 @@ public class APIPay {
 
       vertx.deployVerticle("fr.joul.cie.api_pay.verticle.MainVerticle", options);
       vertx.deployVerticle("fr.joul.cie.api_pay.verticle.DatabaseVerticle", options);
+
+//      vertx.exceptionHandler(new Handler<Throwable>() {
+//        @Override
+//        public void handle(Throwable event) {
+//          System.err.println("Error: " + event);
+//        }
+//      });
     });
   }
 

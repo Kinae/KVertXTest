@@ -16,7 +16,8 @@ public class VehicleHandler implements Handler<RoutingContext> {
 
   private VehicleHandler(Vertx vertx) {
     restAPI = Router.router(vertx);
-    restAPI.get("/:id").handler(this::getVehicle);
+//    restAPI.get("/:id").handler(this::getVehicle); // return 500 Internal Server Error
+    restAPI.get("/:id").handler(this::getVehicle).failureHandler(frc -> frc.response().setStatusCode(frc.statusCode()).end(frc.failure().getMessage())); // return 500 + message
     restAPI.post("/:id/reports").handler(this::postReports);
     restAPI.post("/:id/journey").handler(this::postJourney);
 
@@ -34,7 +35,6 @@ public class VehicleHandler implements Handler<RoutingContext> {
 
   private void getVehicle(RoutingContext ctx) {
     String id = ctx.pathParam("id");
-    System.out.println("getVehicle : " + Thread.currentThread().getId());
 
     vehicleService.getAll(it -> {
       if(it.failed()) {

@@ -17,13 +17,11 @@ public class Vehicle {
 
   public Vehicle(JsonObject jsonObject) {
     VehicleConverter.fromJson(jsonObject, this);
-    System.out.println("Vehicle : " + Thread.currentThread().getId());
   }
 
   public JsonObject toJson() {
     JsonObject json = new JsonObject();
     VehicleConverter.toJson(this, json);
-    System.out.println("toJson : " + Thread.currentThread().getId());
     return json;
   }
 
