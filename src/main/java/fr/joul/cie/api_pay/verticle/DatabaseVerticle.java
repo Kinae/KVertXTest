@@ -27,11 +27,23 @@ public class DatabaseVerticle extends AbstractVerticle {
     new ServiceBinder(vertx)
       .setAddress("vehicle.service")
       .register(VehicleService.class, new VehicleServiceImpl(client));
+
+
+    vertx.eventBus().consumer("database", message -> {
+        client.query("SELECT 1").execute(it -> {
+          if (it.failed()) {
+            message.fail(500, it.toString());
+          } else {
+            message.reply(null);
+//            message.isSend();
+          }
+        });
+    });
+
   }
 
   @Override
   public void stop() throws Exception {
-    super.stop();
     client.close();
   }
 }

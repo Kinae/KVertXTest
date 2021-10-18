@@ -22,16 +22,25 @@ public class HealthHandler implements Handler<RoutingContext> {
     healthCheckHandler.register("my-procedure", promise -> promise.complete(Status.OK()));
     healthCheckHandler.register("my-procedure-with-timeout", 2000, promise -> promise.complete(Status.OK()));
 
-//    healthCheckHandler.register("database",
-//      promise -> pool.getConnection(connection -> {
-//        if (connection.failed()) {
-//          promise.fail(connection.cause());
-//        } else {
-//          connection.result().close();
-//          promise.complete(Status.OK());
-//        }
-//      }));
+    healthCheckHandler.register("database", promise -> {
+      vertx.eventBus().request("database", "healthcheck", it -> {
+        if(it.failed()) {
+          promise.fail(it.cause());
+        } else {
+          promise.complete(Status.OK());
+        }
+      });
+    });
 
+    healthCheckHandler.register("rabbitmq", promise -> {
+      vertx.eventBus().request("rabbitmq", "healthcheck", it -> {
+        if(it.failed()) {
+          promise.fail(it.cause());
+        } else {
+          promise.complete(Status.OK());
+        }
+      });
+    });
     restAPI.get("/details").handler(healthCheckHandler);
 
   }
