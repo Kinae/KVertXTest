@@ -14,6 +14,7 @@ public class APIPay {
       vertx.deployVerticle("fr.joul.cie.api_pay.verticle.MainVerticle", options);
       vertx.deployVerticle("fr.joul.cie.api_pay.verticle.DatabaseVerticle", options);
       vertx.deployVerticle("fr.joul.cie.api_pay.verticle.RabbitMQVerticle", options);
+      vertx.deployVerticle("fr.joul.cie.api_pay.verticle.WebClientVerticle", options);
 
 //      vertx.exceptionHandler(new Handler<Throwable>() {
 //        @Override

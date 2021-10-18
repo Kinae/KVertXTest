@@ -16,8 +16,9 @@ public class RabbitMQVerticle extends AbstractVerticle {
     config.setUser("admin");
     config.setPassword("admin");
     config.setVirtualHost("api-pay");
-    config.setAutomaticRecoveryEnabled(true);
-    config.setReconnectAttempts(0);
+    config.setAutomaticRecoveryEnabled(false);
+    config.setReconnectAttempts(Integer.MAX_VALUE);
+    config.setReconnectAttempts(5000);
 
     config.setAddresses(Arrays.asList(Address.parseAddresses("localhost:5672")));
 
@@ -37,6 +38,16 @@ public class RabbitMQVerticle extends AbstractVerticle {
       } else {
         message.fail(500, "Client is not connected");
       }
+    });
+
+    vertx.eventBus().consumer("rabbitmq.aliveness-test", message -> {
+      vertx.eventBus().request("web-client.rabbitmq", null, it -> {
+        if(it.failed()) {
+          message.fail(500, "Failed: " + it.cause());
+        } else {
+          message.reply(null);
+        }
+      });
     });
   }
 
