@@ -2,6 +2,7 @@ package eu.kinae.k.vertx.test.verticle;
 
 import eu.kinae.k.vertx.test.handler.HealthHandler;
 import eu.kinae.k.vertx.test.handler.VehicleHandler;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.web.Router;
 import org.slf4j.Logger;

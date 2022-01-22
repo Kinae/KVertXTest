@@ -2,6 +2,7 @@ package eu.kinae.k.vertx.test.service.impl;
 
 import eu.kinae.k.vertx.test.entity.Vehicle;
 import eu.kinae.k.vertx.test.service.VehicleService;
+
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;

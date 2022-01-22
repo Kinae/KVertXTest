@@ -1,6 +1,7 @@
 package eu.kinae.k.vertx.test.handler;
 
 import eu.kinae.k.vertx.test.verticle.WebClientVerticle;
+
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.ext.auth.authentication.UsernamePasswordCredentials;
@@ -21,7 +22,19 @@ public class HealthHandler implements Handler<RoutingContext> {
     private HealthHandler(Vertx vertx) {
         restAPI = Router.router(vertx);
         restAPI.get("/").handler(HealthCheckHandler.create(vertx));
+        restAPI.get("/details").handler(details(vertx));
+    }
 
+    public static Router create(Vertx vertx) {
+        return new HealthHandler(vertx).restAPI;
+    }
+
+    @Override
+    public void handle(RoutingContext ctx) {
+        restAPI.handleContext(ctx);
+    }
+
+    private HealthCheckHandler details(Vertx vertx) {
         HealthCheckHandler healthCheckHandler = HealthCheckHandler.createWithHealthChecks(HealthChecks.create(vertx));
         healthCheckHandler.register("my-procedure", promise -> promise.complete(Status.OK()));
         healthCheckHandler.register("my-procedure-with-timeout", 2000, promise -> promise.complete(Status.OK()));
@@ -73,17 +86,6 @@ public class HealthHandler implements Handler<RoutingContext> {
               });
         });
 
-        restAPI.get("/details").handler(healthCheckHandler);
-
+        return healthCheckHandler;
     }
-
-    public static Router create(Vertx vertx) {
-        return new HealthHandler(vertx).restAPI;
-    }
-
-    @Override
-    public void handle(RoutingContext ctx) {
-        restAPI.handleContext(ctx);
-    }
-
 }

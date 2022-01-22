@@ -1,6 +1,7 @@
 package eu.kinae.k.vertx.test.handler;
 
 import eu.kinae.k.vertx.test.service.VehicleService;
+
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
@@ -17,7 +18,11 @@ public class VehicleHandler implements Handler<RoutingContext> {
     private VehicleHandler(Vertx vertx) {
         restAPI = Router.router(vertx);
 //    restAPI.get("/:id").handler(this::getVehicle); // return 500 Internal Server Error
-        restAPI.get("/:id").handler(this::getVehicle).failureHandler(frc -> frc.response().setStatusCode(frc.statusCode()).end(frc.failure().getMessage())); // return 500 + message
+        restAPI.get("/:id")
+          .handler(this::getVehicle)
+          .failureHandler(frc -> frc.response()
+            .setStatusCode(frc.statusCode())
+            .end(frc.failure().getMessage())); // return 500 + message
         restAPI.post("/:id/reports").handler(this::postReports);
         restAPI.post("/:id/journey").handler(this::postJourney);
 

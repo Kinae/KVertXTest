@@ -1,6 +1,7 @@
 package eu.kinae.k.vertx.test.service;
 
 import eu.kinae.k.vertx.test.entity.Vehicle;
+
 import io.vertx.codegen.annotations.ProxyGen;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;

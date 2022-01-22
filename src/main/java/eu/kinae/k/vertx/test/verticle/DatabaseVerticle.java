@@ -2,6 +2,7 @@ package eu.kinae.k.vertx.test.verticle;
 
 import eu.kinae.k.vertx.test.service.VehicleService;
 import eu.kinae.k.vertx.test.service.impl.VehicleServiceImpl;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;

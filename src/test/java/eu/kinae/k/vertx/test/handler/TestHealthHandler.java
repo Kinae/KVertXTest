@@ -1,6 +1,7 @@
 package eu.kinae.k.vertx.test.handler;
 
 import eu.kinae.k.vertx.test.TestMainVerticle;
+
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpMethod;
